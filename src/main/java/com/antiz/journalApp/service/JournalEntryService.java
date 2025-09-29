@@ -27,7 +27,7 @@ public class JournalEntryService {
           JournalEntry saved = journalEntryRepository.save(journalEntry);
           User user = userService.findByname(userName);
           user.getJournalEntries().add(saved);
-          userService.saveEntry(user);
+          userService.saveUser(user);
       }
       catch (Exception e) {
           System.out.println(e);
@@ -52,11 +52,24 @@ public class JournalEntryService {
         return journalEntryRepository.findById(myId);
     }
 
-    public void deleteByID(ObjectId myId, String userName) {
-        User user = userService.findByname(userName);
-        user.getJournalEntries().removeIf(x -> x.getId().equals(myId));
-        userService.saveEntry(user);
-        journalEntryRepository.deleteById(myId);
-    }
+    @Transactional
+    public boolean deleteByID(ObjectId myId, String userName) {
+        boolean removed = false;
+        try {
 
+
+        User user = userService.findByname(userName);
+            removed = user.getJournalEntries().removeIf(x -> x.getId().equals(myId));
+
+            if (removed) {
+                userService.saveUser(user);
+        journalEntryRepository.deleteById(myId);
+
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            throw new RuntimeException("error while deleting journal entry");
+        }
+        return removed;
+    }
 }
