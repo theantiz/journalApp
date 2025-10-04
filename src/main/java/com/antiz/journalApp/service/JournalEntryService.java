@@ -4,12 +4,14 @@ import com.antiz.journalApp.entity.JournalEntry;
 import com.antiz.journalApp.entity.User;
 import com.antiz.journalApp.repository.JournalEntryRepository;
 import org.bson.types.ObjectId;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @Component
 public class JournalEntryService {
@@ -52,6 +54,10 @@ public class JournalEntryService {
         return journalEntryRepository.findById(myId);
     }
 
+
+    // we will use slf4j for logger
+    // logging abstraction framework
+
     @Transactional
     public boolean deleteByID(ObjectId myId, String userName) {
         boolean removed = false;
@@ -68,7 +74,6 @@ public class JournalEntryService {
             }
         } catch (Exception e) {
             System.out.println(e);
-            throw new RuntimeException("error while deleting journal entry");
         }
         return removed;
     }

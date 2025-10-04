@@ -3,6 +3,7 @@ package com.antiz.journalApp.service;
 
 import com.antiz.journalApp.entity.User;
 import com.antiz.journalApp.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
 
 @Component
 public class UserService {
