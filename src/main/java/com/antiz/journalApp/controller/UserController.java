@@ -1,8 +1,10 @@
 package com.antiz.journalApp.controller;
 
+import com.antiz.journalApp.api.response.WeatherResponse;
 import com.antiz.journalApp.entity.User;
 import com.antiz.journalApp.repository.UserRepository;
 import com.antiz.journalApp.service.UserService;
+import com.antiz.journalApp.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private WeatherService weatherService;
 
     @GetMapping
     public List<User> getAllUsers() {
@@ -56,4 +61,17 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping("/greeting")
+    public ResponseEntity<?> greeting() // use username to find the User
+    {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        WeatherResponse weatherResponse = weatherService.getWeather("Mumbai");
+        String greeting = "";
+        if (weatherResponse != null) {
+            greeting = "Weather feels like" + weatherResponse.getCurrent().getFeelslike();
+        }
+        return new ResponseEntity<>("Hi" + authentication.getName() + greeting, HttpStatus.OK);
+
+
+    }
 }
