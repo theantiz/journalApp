@@ -1,6 +1,6 @@
 # JournalApp
 
-JournalApp is a scalable and secure web application designed to help users create, manage, and organize their personal journal entries efficiently. The project showcases modern software development practices by integrating robust backend architecture with advanced features such as messaging, security, caching, and cloud deployment.
+JournalApp is a scalable and secure web application designed to help me to create, manage, and organize their personal journal entries efficiently. The project showcases modern software development practices by integrating robust backend architecture with advanced features such as messaging, security, caching, and cloud deployment.
 
 ## Features
 
